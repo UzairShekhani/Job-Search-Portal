@@ -12,11 +12,17 @@ function App() {
     const [jobs, setJobs] = useState([])
 
     const fetchJobs = async() => {
+      const tempJobs = []
       const q = query(collection(db, "job "));
       const querySnapShot = await getDocs(q);
-      querySnapShot.forEach((doc) => {
-        console.log(doc.id, "=>", doc.data())
-      })
+      querySnapShot.forEach((job) => {
+        // console.log(doc.id, "=>", doc.data())
+        tempJobs.push({
+          ...job.data(),
+          id : job.id
+        });
+      });
+      setJobs(tempJobs)
     }
 
 
