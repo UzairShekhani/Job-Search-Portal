@@ -1,10 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Header from "./components/Header"
 import JobCard from "./components/JobCard"
 import Navbar from "./components/Navbar"
 import SearchBar from "./components/SearchBar"
 import jobData from "./DummyData"
-import { collection, query, where, getDocs, doc } from "firebase/firestore"
+import { collection, query, where, getDocs} from "firebase/firestore"
 import { db } from "./firebase.config"
 
 
@@ -15,9 +15,14 @@ function App() {
       const q = query(collection(db, "job "));
       const querySnapShot = await getDocs(q);
       querySnapShot.forEach((doc) => {
-        
+        console.log(doc.id, "=>", doc.data())
       })
     }
+
+
+    useEffect(() => {
+      fetchJobs()
+    },[])
 
   return (
     <>
