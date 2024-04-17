@@ -1,6 +1,6 @@
 import React, { useState } from 'react'; // useState import kiya hai
 
-function SearchBar() {
+function SearchBar(props) { // props ko function arguments mein pass kiya hai
     const [jobCriteria, setjobCriteria] = useState({ // useState ka sahi use kiya hai
         title: "",
         location: "", // "Location" ki jagah "location" use kiya hai
@@ -15,6 +15,10 @@ function SearchBar() {
         }));
     };
     console.log(jobCriteria);
+
+    const search = async () => {
+        await props.fetchJobsCustom(jobCriteria);
+    };
 
     return (
         <div className='flex gap-4 my-10 justify-center px-10'>
@@ -45,7 +49,7 @@ function SearchBar() {
                 <option value="Mid Level">Mid Level</option>
                 <option value="Senior Level">Senior Level</option>
             </select>
-            <button className='w-64 bg-blue-500 text-white font-bold py-3 rounded-md'>Search</button>
+            <button onClick={search} className='w-64 bg-blue-500 text-white font-bold py-3 rounded-md'>Search</button>
         </div>
     );
 }
